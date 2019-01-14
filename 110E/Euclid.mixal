@@ -1,0 +1,14 @@
+	ORIG	1000
+M	CON	2166
+N	CON	6099
+START	NOP
+E1	LDA	M
+	SRAX	5		load m to rAX 
+	DIV	N		rX iz r
+E2	JXZ	EXIT		done n is the answer
+E3	LDA	N
+	STA	M		m <- n
+	STX	N		n <- r
+	JMP	E1
+EXIT	HLT
+	END	START
