@@ -1,6 +1,6 @@
-_9.  [25] Location INST contains a MIX word that purportedly is a MIX instruction.  
-Write a MIX program that jumps to location GOOD if the word has a valid C-field,  
-valid &plusmn;AA-field, valid I-field, and valid F-field, according to Table 1.3.1-1; your pro-  
+9. [25] Location *INST* contains a *MIX* word that purportedly is a *MIX* instruction.  
+Write a *MIX* program that jumps to location *GOOD* if the word has a valid *C-field*,  
+valid *&plusmn;AA-field*, valid *I-field*, and valid *F-field*, according to *Table 1.3.1-1*; your pro-  
 gram should jump to location BAD otherwise. Remember that the test for a valid F-field  
 depends on the C-field; for example, if C = 7(MOVE), any F-field is acceptable, but if C  
 = 8(LDA), the F-field must have the form 8L +  R where 0 &le; L &le; R &le; 5. The "&plusmn;AA"-  
@@ -10,8 +10,8 @@ address and I = 0 and &plusmn;AA is not a valid memory address.
 long series of test on the C-field, such as `LDA C; JAZ 1F; DECA 5; JAN 2F; JAZ 3F;`    
 `DECA 2; JAN 4F;` ... This is not good practice! The best way to make multiway  
 decisions is to prepare an auxiliary table containing information that encapsulates the  
-desired logic. If there were, for example, a table of 64 entries, we could write `LD1 C;  
-LD1 TABLE,1; JMP 0,1`--thereby jmuping very speedily to the desired routine. Other  
+desired logic. If there were, for example, a table of 64 entries, we could write `LD1 C;`    
+`LD1 TABLE,1; JMP 0,1`--thereby jmuping very speedily to the desired routine. Other  
 useful information can also be kept in such a table. A tabular approach to the present  
 problem makes the probram only a little bit longer (including the table) and greatly  
 increases its speed and flexibility.  
