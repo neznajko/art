@@ -1,11 +1,11 @@
 _9.  [25] Location INST contains a MIX word that purportedly is a MIX instruction.  
 Write a MIX program that jumps to location GOOD if the word has a valid C-field,  
-valid +-AA-field, valid I-field, and valid F-field, according to Table 1.3.1-1; your pro-  
+valid &plusmn;AA-field, valid I-field, and valid F-field, according to Table 1.3.1-1; your pro-  
 gram should jump to location BAD otherwise. Remember that the test for a valid F-field  
 depends on the C-field; for example, if C = 7(MOVE), any F-field is acceptable, but if C  
-= 8(LDA), the F-field must have the form 8L +  R where 0 <= L <= R <= 5. The "+-AA"-  
+= 8(LDA), the F-field must have the form 8L +  R where 0 &le; L &le; R &le; 5. The "&plusmn;AA"-  
 field is to be considered valid unless C specifies an instruction requiring a memory  
-address and I = 0 and +-AA is not a valid memory address.  
+address and I = 0 and &plusmn;AA is not a valid memory address.  
 	Note: Inexperienced programmers tend to tackle a problem like this by writing a  
 long series of test on the C-field, such as "LDA C; JAZ 1F; DECA 5; JAN 2F; JAZ 3F;  
 DECA 2; JAN 4F; ...". This is not good practice! The best way to make multiway  
