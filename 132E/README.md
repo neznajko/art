@@ -17,6 +17,8 @@ problem makes the probram only a little bit longer (including the table) and gre
 increases its speed and flexibility.  
 **&#9658; 10** [31] Assume that we have a *9 x 8* matrix  
 
+<a href="https://www.codecogs.com/eqnedit.php?latex=\dpi{120}&space;\fn_jvn&space;\begin{pmatrix}&space;a_{11}&space;&&space;a_{12}&space;&&space;a_{13}&space;&&space;\cdots&space;&&space;a_{18}&space;\\&space;a_{21}&space;&&space;a_{22}&space;&&space;a_{23}&space;&&space;\cdots&space;&&space;a_{28}&space;\\&space;\vdots&space;&&space;\vdots&space;&&space;\vdots&space;&&space;\ddots&space;&&space;\vdots&space;\\&space;a_{91}&space;&&space;a_{92}&space;&&space;a_{93}&space;&&space;\cdots&space;&&space;a_{98}&space;\\&space;\end{pmatrix}" target="_blank"><img src="https://latex.codecogs.com/png.latex?\dpi{120}&space;\fn_jvn&space;\begin{pmatrix}&space;a_{11}&space;&&space;a_{12}&space;&&space;a_{13}&space;&&space;\cdots&space;&&space;a_{18}&space;\\&space;a_{21}&space;&&space;a_{22}&space;&&space;a_{23}&space;&&space;\cdots&space;&&space;a_{28}&space;\\&space;\vdots&space;&&space;\vdots&space;&&space;\vdots&space;&&space;\ddots&space;&&space;\vdots&space;\\&space;a_{91}&space;&&space;a_{92}&space;&&space;a_{93}&space;&&space;\cdots&space;&&space;a_{98}&space;\\&space;\end{pmatrix}" title="\begin{pmatrix} a_{11} & a_{12} & a_{13} & \cdots & a_{18} \\ a_{21} & a_{22} & a_{23} & \cdots & a_{28} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ a_{91} & a_{92} & a_{93} & \cdots & a_{98} \\ \end{pmatrix}" /></a>
+
 stored in memory so that *a<sub>ij</sub>* is in location *1000+8i+j*. In memory the matrix therefore  
 appears as follows:  
 
