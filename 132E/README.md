@@ -16,7 +16,8 @@ useful information can also be kept in such a table. A tabular approach to the p
 problem makes the probram only a little bit longer (including the table) and greatly  
 increases its speed and flexibility.  
 
-**&#9658; 10** [31] Assume that we have a *9 x 8* matrix $$ x = 1 + y $$
+**&#9658; 10** [31] Assume that we have a *9 x 8* matrix  
+
 stored in memory so that *a<sub>ij</sub>* is in location *1000+8i+j*. In memory the matrix therefore  
 appears as follows:  
 
