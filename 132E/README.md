@@ -1,4 +1,3 @@
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 **9.** [25] Location *INST* contains a *MIX* word that purportedly is a *MIX* instruction.  
 Write a *MIX* program that jumps to location *GOOD* if the word has a valid *C-field*,  
 valid *&plusmn;AA-field*, valid *I-field*, and valid *F-field*, according to *Table 1.3.1-1*; your pro-  
@@ -17,8 +16,7 @@ useful information can also be kept in such a table. A tabular approach to the p
 problem makes the probram only a little bit longer (including the table) and greatly  
 increases its speed and flexibility.  
 **&#9658; 10** [31] Assume that we have a *9 x 8* matrix  
-$ x = y $
-$$ \sum $$
+
 stored in memory so that *a<sub>ij</sub>* is in location *1000+8i+j*. In memory the matrix therefore  
 appears as follows:  
 
