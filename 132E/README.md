@@ -15,3 +15,14 @@ desired logic. If there were, for example, a table of 64 entries, we could write
 useful information can also be kept in such a table. A tabular approach to the present  
 problem makes the probram only a little bit longer (including the table) and greatly  
 increases its speed and flexibility.  
+
+**> 10** [31] Assume that we have a *9 x 8* matrix
+
+stored in memory so that *a<sub>ij</sub>* is in location *1000+8i+j*. In memory the matrix therefore  
+appears as follows:  
+
+A matrix is said to have a "saddle point" if some position is the smallest value in  
+its row and the largest value in its column. In symbols, *a<sub>ij</sub>* is a saddle point if  
+
+Write a *MIX* program that computes the location of a saddle point (if there is at least  
+one) or zero (if there is no saddle point), and stops with this value in *rI1*.  
