@@ -1,0 +1,139 @@
+TERM	EQU	19	Typewriter terminal
+ZAP	EQU	41	,
+BSIZE	EQU	14	Block size
+	ORIG	1000
+BUF	ORIG	*+BSIZE	Output buffer
+********************************************************
+* POWER ¿Question what is this function doing? *********
+********************************************************
+*  Input: rA (x), rI4 (y) ******************************
+*********************************** ********************
+* Output: rA ********************** ********************
+************************ ********** ********************
+X	CON	0	  	   *
+POWER	STJ	1F		   
+	STA	X		   *
+	ENTA	1		   
+	ENT3	0,4	 reserve ac uracy
+2H	J3Z	1F		   *
+	MUL	X	           c
+	SLAX	5	*
+	DEC3	1	
+	JMP	2B	P
+1H	JMP	*	¡Ansver ****************** x**y!
+***************************************************************
+* Input: ACCR (accuracy) **************************************
+***************************************************************
+* [S1. Init] {             * [S2. Find f.] {            *******
+*      m <- 10**(ACCR + 1) *      Q <- Q + 10           *******          
+*      Q <- 5              *      f <- floor(m / Q) + 1 *******
+*      S <- 0              *  }                         *******   
+*      n <- floor(m / Q)   ************************************
+*  }                       ************************************
+***************************************************************
+* [S3. f = n?] {     * [S4. Sum.] {                           *
+*      Yez) go to S5 *      S <- S + floor(Q / 10)(n - f + 1) *
+*      No) continue  *      n <- f - 1                        *
+*  }                 *      go to S2                          *
+**********************  }                                     *
+***************************************************************
+* from here we start summing in the usual way *****************
+***************************************************************
+* [S5. Accumulate.] {             * [S6. f = 0?] {     ********
+*      Q <- floor(m / f)          *      Yez) continue ********
+*      S <- S + floor((Q + 5)/10) *      No) go to S5  ********
+*      f <- f - 1                 *  }                 ********
+*  }                              *****************************
+***************************************************************
+* [S7. Result.] {        **************************************
+*      S <- S/(10**ACCR) **************************************
+*  }                     *********************************EXIT*
+***************************************************************
+* Input: rI4 (ACCR)
+***************************************************************
+* Output: rA (integer-part), rX (fractional-part)
+***************************************************************
+M	CON	0	em
+Q	CON	0	qu
+S	CON	0	es
+N	CON	0	en
+F	CON	0	ef
+SUM	STJ	EXIT
+S1	ENTA	5
+	STA	Q
+	ENTA	10	   x <- 10
+	INC4	1	   
+	JMP	POWER	  rA <- 10**(ACCR + 1)
+	STA	M	yep! <-
+	SRAX	5
+	DIV	Q	  rA <- floor(m / Q)
+	STA	N	cked <- up and good to go
+	STZ	S
+S2	LDA	Q	..
+	INCA	10
+	STA	Q	   Q <- Q + 10
+	LDA	M	**
+	SRAX	5
+	DIV	Q
+	INCA	1	f <- floor(m / Q) + 1
+	STA	F
+S3	CMPA	N	f = n? S T A R T 
+	JE	S5	*   |> \\       *
+S4	LDA	N	 *  |  ||        *
+	SUB	F	     *    || |>      *
+	INCA	1	      *   \\ |        *
+	STA	N	      *  |>\          *
+	LDA	Q	       * | \\_         *
+	SRAX	5     	        *     \\   |>    *
+	DIV	=10=	        *    |> \\ |      *
+	MUL	N	         *   |  //       * 
+	SLAX	5	         *        \\     * 
+	ADD	S	   S <- S + floor(Q / 10)(n - f + 1)
+	STA	S	       *  __|_   \\    *
+	LDA	F	     ** //     \  || |>  *
+	DECA	1	   F I N I S H  \_// | *
+	STA	N	n <- f - 1    
+	JMP	S2
+S5	LDA	M	rA <- m
+	SRAX	5	
+	DIV	F	rA <- floor(m / f)
+	STA	Q
+	INCA	5
+	SRAX	5
+	DIV	=10=	rA <- floor((Q + 5)/10)
+	ADD	S
+	STA	S
+	LDA	F
+	DECA	1
+	STA	F
+S6	JANZ	S5
+S7	DEC4	1
+	ENTA	10
+	JMP	POWER
+	STA	N
+	LDA	S
+	SRAX	5
+	DIV	N
+EXIT	JMP	*
+START	NOP
+	ENT4	5	ACCR
+1H	JMP	SUM	rA,rX
+* Output ze result
+	STX	S	Backup
+	CHAR	0	Integer part to chars
+	ENTA	ZAP
+	SLA	4
+	SRC	4
+	STA	BUF
+	LDA	S	Re-establish fractional part
+	CHAR	0
+	ENT2	5
+	DEC2	0,4
+	SLAX	0,2
+	STX	BUF+1
+	OUT	BUF(TERM)
+*
+	DEC4	1
+	J4P	1B
+	HLT
+	END	START

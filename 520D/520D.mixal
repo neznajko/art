@@ -1,0 +1,16 @@
+CARDRD	EQU	16		Card reader
+BSIZ	EQU	16		Block size
+KEY	EQU	1:1		key field
+	ORIG	0
+BUF	ORIG	*+BSIZ		input buffer
+START	IN	BUF(CARDRD)	
+	ENT2	BSIZ-1		rI2: BUF index
+1H	LDA	BUF,2(KEY)	rA: key character
+	SRAX	5		Prepare to convert to a number.
+	NUM	0		rA holds the key
+	STA	BUF,2		Store to BUF
+	DEC2	1		get prev key
+	J2NN	1B		if non negative jump back
+* Probably I don't want to destroy ze input
+	HLT
+	END	START
