@@ -1,0 +1,40 @@
+	ORIG	1000
+X	CON	0
+	CON	1
+	ORIG	2000
+Y	CON	1
+	ORIG	3000
+* x_0 = 0	
+* y_0 = 1	
+* x_1 = 1	x_(k+2) = floor[(y_k + n)/y_(k+1)]*x_(k+1) - x_k
+* y_1 = n	y_(k+2) = floor[(y_k + n)/y_(k+1)]*y_(k+1) - y_k
+C	CON	0
+START	NOP
+* rI1 - k
+* rI2 - n
+	ENT1	0	k <- 0
+	ENT2	7	n <- 7
+	ST2	Y+1	y[1] <- n
+* C
+1H	LDA	Y,1	y[k]
+	INCA	0,2	y[k] + n
+	SRAX	5
+	DIV	Y+1,1	rA <- floor[(y[k] + n)/y[k+1]
+	STA	C
+* x[k+1]
+	MUL	X+1,1	multiply by x[k+1]
+	SLAX	5
+	SUB	X,1	substract x[k]
+	STA	X+2,1	Store at x[k+2]
+* y[k+2]
+	LDA	C
+	MUL	Y+1,1	Switch X <-> Y
+	SLAX	5
+	SUB	Y,1	
+	STA	Y+2,1
+*
+	INC1	1
+	CMPA	=1=
+	JNE	1B
+	HLT
+	END	START
