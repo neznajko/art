@@ -1,9 +1,15 @@
 # art
 The Art Of Computer Programming
 
-110E. Euclid's algorithm
+1.1 **Algorithm E.** _(Euclid's algorithm)_
    + go
    + mixal
    + python
    + gas
    + lisp
+
+1.3.2 **Algorithm P.**_(Print table of 500 primes)._
+   + lisp
+   + python
+   + gas
+   
