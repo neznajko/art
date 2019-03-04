@@ -8,7 +8,7 @@ The Art Of Computer Programming
    + gas
    + lisp
 
-1.3.2 **Algorithm P.**_(Print table of 500 primes)._
+1.3.2 **Algorithm P** _(Print table of 500 primes)._
    + lisp
    + python
    + gas
