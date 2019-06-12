@@ -1,10 +1,10 @@
 CARDRD	EQU	16		Card reader
-BSIZ	EQU	16		Block size
+BLEN	EQU	16		Block size
 KEY	EQU	1:1		key field
 	ORIG	0
-BUF	ORIG	*+BSIZ		input buffer
+BUF	ORIG	*+BLEN		input buffer
 START	IN	BUF(CARDRD)	
-	ENT2	BSIZ-1		rI2: BUF index
+	ENT2	BLEN-1		rI2: BUF index
 1H	LDA	BUF,2(KEY)	rA: key character
 	SRAX	5		Prepare to convert to a number.
 	NUM	0		rA holds the key
