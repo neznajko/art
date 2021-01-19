@@ -9,7 +9,8 @@ The Art Of Computer Programming
    + lisp
 
 ![](img/132P.png)
-1.3.2 **Algorithm P** _(Print table of 500 primes)._
+
+## 1.3.2 **Algorithm P** _(Print table of 500 primes)._
    + lisp
    + python3
    + gas
