@@ -1,1 +1,0 @@
-![Primes](../img/132P.png)
