@@ -1,0 +1,16 @@
+/home/neznajko/Public/art/110E/Euclid/bin/Debug/net5.0/Euclid
+/home/neznajko/Public/art/110E/Euclid/bin/Debug/net5.0/Euclid.deps.json
+/home/neznajko/Public/art/110E/Euclid/bin/Debug/net5.0/Euclid.runtimeconfig.json
+/home/neznajko/Public/art/110E/Euclid/bin/Debug/net5.0/Euclid.runtimeconfig.dev.json
+/home/neznajko/Public/art/110E/Euclid/bin/Debug/net5.0/Euclid.dll
+/home/neznajko/Public/art/110E/Euclid/bin/Debug/net5.0/ref/Euclid.dll
+/home/neznajko/Public/art/110E/Euclid/bin/Debug/net5.0/Euclid.pdb
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.csprojAssemblyReference.cache
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.GeneratedMSBuildEditorConfig.editorconfig
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.AssemblyInfoInputs.cache
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.AssemblyInfo.cs
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.csproj.CoreCompileInputs.cache
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.dll
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/ref/Euclid.dll
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.pdb
+/home/neznajko/Public/art/110E/Euclid/obj/Debug/net5.0/Euclid.genruntimeconfig.cache

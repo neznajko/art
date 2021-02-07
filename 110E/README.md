@@ -1,1 +1,0 @@
-![Euclid](../img/110E.png)

@@ -1,14 +1,22 @@
-	ORIG	1000
+TERM    EQU     19              Typewriting Terminal
+BSIZ    EQU     14              Block Size
+        ORIG    0
+BUF    	ORIG	BSIZ       
 M	CON	2166
 N	CON	6099
 START	NOP
 E1	LDA	M
 	SRAX	5		load m to rAX 
-	DIV	N		rX iz r
+	DIV	N		rX iz r, rA holds the quotient
 E2	JXZ	EXIT		done n is the answer
 E3	LDA	N
 	STA	M		m <- n
 	STX	N		n <- r
 	JMP	E1
-EXIT	HLT
+EXIT	LDA     N
+        CHAR    0
+        STX     BUF
+        OUT     BUF(TERM)
+        HLT
 	END	START
+* log: ck with gmixvm
