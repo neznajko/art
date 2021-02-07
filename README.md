@@ -1,12 +1,14 @@
 # art
 The Art Of Computer Programming
 
+![](img/11E.png)
+
 1.1 **Algorithm E.** _(Euclid's algorithm)_
    + go
    + mixal
    + python
    + gas
-   + lisp
+   + elisp
 
 ![](img/132P.png)
 
