@@ -1,7 +1,7 @@
 # art
 The Art Of Computer Programming
 
-![](img/11E.png)
+![](img/110E.png)
 
 1.1 **Algorithm E.** _(Euclid's algorithm)_
    + go
