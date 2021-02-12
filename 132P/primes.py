@@ -9,8 +9,8 @@ while len (prime) < z:
     n += 2
     try:
       for p in prime [1:]:
-        if  n % p == 0: break              # nah! ck next
-        if n // p <= p: raise Exception () # yup!
+        if n % p == 0: break              # nah! ck next
+        if n// p <= p: raise Exception () # yup!
     except: break
 for i in range (lines):
   buf = ''
