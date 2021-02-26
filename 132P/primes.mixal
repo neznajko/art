@@ -1,0 +1,47 @@
+* PROGRAM TO SPIT FIRST 500 PRIMES
+*1234567*1234567*1234567*1234567*1234567*1234567*1234567*1234567
+TERM    EQU     19              TYPEWRITING TERMINAL
+BLOCK   EQU     14              BLOCK SIZE
+LINEZ   EQU     50              TABLE LINES
+BUFF    ORIG    BLOCK           OUTPUT BUFFER
+SIZE    CON     500             TABLE SIZE
+PRIME   CON     2               PRIMES' ARRAY
+        ORIG    3000
+* rI1: J - NUMBER OF FOUND PRIMES
+* rI2: N - NEXT PRIME CANDIDATE
+* rI3: K - PRIME'S INDEX
+START   NOP
+        ENT1    1               J <- 1
+        ENT2    3               N <- 3
+*       [ N IS PRIME ]
+1H      ENTA    0,2             rA <- N
+        STA     PRIME,1         PRIME[J] <- rA
+        INC1    1               J <- J + 1
+*       [ ARE WE DONE? ]
+        CMP1    SIZE            J < 500?
+        JE      SPIT            NOP
+*       [ TRY WITH NEXT ODD NUMBER ]        
+2H      INC2    2               N <- N + 2
+        ENT3    1               K <- 1
+3H      ENTA    0,2             rA <- N
+        SRAX    5               rA:rX <- N
+        DIV     PRIME,3         N/PRIME[K]; Q <- rA, R <- rX
+        JXZ     2B              NOT A PRIME
+        CMPA    PRIME,3         Q <= PRIME[K]?
+        JLE     1B              YEP
+        INC3    1               K <- K + 1
+        JMP     3B              CONTINUER \A RE/PE/TER
+SPIT    ENT4    -LINEZ          ROW
+2H      ENT5    LINEZ,4
+        ENT6    BUFF-1
+1H      INC6    1
+        LDA     PRIME,5
+        CHAR    0
+        STX     0,6(1:4)
+        INC5    LINEZ
+        CMP5    SIZE
+        JL      1B
+        OUT     BUFF(TERM)
+        INC4    1
+        J4NZ    2B
+        END     START
