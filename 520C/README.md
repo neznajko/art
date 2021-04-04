@@ -1,1 +1,0 @@
-![Count](../img/520C.png)
