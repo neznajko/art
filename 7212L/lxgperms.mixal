@@ -1,0 +1,67 @@
+* LEXICOGRAPHIC PERMUTATIONS
+TERM    EQU     19      TYPEWRITING TERMINAL
+BLCK    EQU     14      BLOCK SIZE
+N       EQU     4       NUMBER OF RECORDS
+REC     ORIG    0       SORTED RECORDS:
+        CON     0       REC[0] < REC[N]
+        CON     1
+        CON     2
+        CON     3
+        CON     4
+BUFF    ORIG    *+BLCK  OUTPUT BUFFER        
+* rI1 - J
+* rI6 - R
+* OUTPUT: rX - 0 IF NO MOAR
+NXTPRM  STJ     EXIT
+        ENT1    N       J <- N
+* [FIND J]
+1H      DEC1    1       J <- J-1
+        LDA     REC,1   rA <- REC[J]
+        CMPA    REC+1,1 REC[J] < REC[J+1]?
+        JGE     1B      NOP
+*       CK IF J = 0 (ARE WE DON?)
+        J1P     2F      NOT YET
+        ENTX    0       NO MOAR
+        JMP     EXIT    BYE
+* [INCREACE REC[J]]
+2H      ENT6    N+1     R <- N+1
+1H      DEC6    1       R <- R-1
+        CMPA    REC,6   REC[J] < REC[R]?
+        JGE     1B      NOP
+* [XCHG]
+        LDX     REC,6   rX <- REC[R]
+        STX     REC,1   REC[J] <- rX
+        STA     REC,6   REC[R] <- rA
+* [REVERSE]
+        INC1    1       J <- J+1
+        ENT6    N       R <- N
+*       J < R?
+3H      DEC6    0,1     R <- R-J
+        J6NP    3F      J >= R
+        INC6    0,1     RESTORE R
+*       XCHG J AND R
+        LDA     0,1     rA <- REC[J]
+        LDX     0,6     rX <- REC[R]
+        STA     REC,6   rA -> REC[R]
+        STX     REC,1   rX -> REC[J]
+        INC1    1       J <- J+1
+        DEC6    1       R <- R-1
+        JMP     3B      CONTINUER \A RE/PE/TER
+3H      ENTX    1       OK
+EXIT    JMP     *
+START   NOP
+SPIT    ENT1    1-N         J <- 1, REC  INDEX
+        ENT6    0           B <- 0, BUFF INDEX
+2H      LDA     REC+N,1     rA <- REC[J]
+        CHAR    0           CONVERT REC[J]
+        STX     BUFF,6(1:4) BUFF[B] <- rX
+        INC1    1           J <- J + 1
+        J1P     1F          DON!
+        INC6    1           B <- B + 1
+        JMP     2B          LOOF
+1H      OUT     BUFF(TERM)  YEAH
+        JMP     NXTPRM
+        JXNZ    SPIT
+        NOP
+        END     START
+* LOG:
