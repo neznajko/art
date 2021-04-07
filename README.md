@@ -5,22 +5,24 @@ vithout touching Knuth's books at all, but
 for whatever reason I like reading these books.
 This is a project I've started of writing
 algorithms and exercises from Knuth's books in
-diffrent lagnuages, for the moment these are
+different languages, for the moment these are
 the languages:
-a) C++
-b) Python
-c) Perl
-d) gas
-e) nasm
-f) mixal
-g) C#
-h) JavaScript
-i) bash
-j) elisp
-k) go
-l) java
+ - C++
+ - Python
+ - Perl
+ - gas
+ - nasm
+ - mixal
+ - C#
+ - JavaScript
+ - bash
+ - elisp
+ - go
+ - java
 It's fun and I hope to update this repository
 frequently. These are the current algorithms:
+ - 110E  - Euclid's algorithm.
+ - 132P  - Print table of 500 primes.
+ - 7212L - Lexicographic permutation generation.
 
-..
-
+[Si, Se Puede](https://youtu.be/vqyo2keN8Bw)

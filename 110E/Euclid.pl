@@ -1,4 +1,4 @@
-#! /usr/bin/env perl
+#!/usr/bin/env perl
 my ($m, $n) = @ARGV;
 #
 if (not defined $m) {
