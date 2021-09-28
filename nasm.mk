@@ -5,7 +5,7 @@ LNK = gcc -gdwarf
 a.out: ${OBJ} 
 	${LNK} $^
 ${OBJ}: ${SRC}
-	nasm -f elf64 -g -F dwarf $<
+	nasm -i ../lib/ -f elf64 -g -F dwarf $<
 
 .PHONY: clean
 clean:

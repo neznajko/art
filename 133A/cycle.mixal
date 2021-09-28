@@ -1,0 +1,83 @@
+*	*	*	*	*	_	*	*
+TWTRM		EQU	19		Typewriter terminal
+PAPER		EQU	20		Paper tape unit
+BLOCK		EQU	14		I/O block size
+F1		ORIG	3000		:) Formula 1( 0 )
+RESLT		ORIG	1*BLOCK+*	Result( 3000 )
+START		NOP
+		ENN1	BLOCK		Input block counter
+		ENT2	0		J( ->START )
+		ENT5	0		L( RESLT position )
+1H		INC1	BLOCK
+		IN	F1,1(PAPER)
+		LDA	F1,1		End of input?
+		JANZ	1B
+* Ok now multiplication formula is loaded at F1, next
+* is first pass, here we tag '(', and replace ')' with a
+* tagged copy of the character following the '('.
+		ENN1	1
+		ENNX	0		tag rX
+1H		INC1	1		Clck next
+		LDA	F1,1		Load formula char
+		JAZ	STAAT		Don Here!
+		CMPA	RYTEP		is it )?
+		JNE	2F		N O P
+		STX	F1,1		Replace )
+2H		CMPA	LEFTP		is ( ?
+		JNE	1B		Nope
+		STX	F1,1(0:0)	Tag
+		INC1	1		Get next char
+		LDXN	F1,1		Tagged Copy
+		JMP	1B		Follow me
+* Ok find first untagged character (J)
+STAAT		INC2	1		J++
+		LDA	F1,2		rA <- a[J]
+		JAZ	DONE		R VE DON?
+		JAN	STAAT		Tagged¡
+* Output area:
+		LDXN	LEFTP
+		STX	RESLT,5(1:5)	<< (
+		STA	RESLT+1,5	<< (START
+		INC5	2		L += 2
+		STX	F1,2(0:0)	Tag
+* Mark CURRENT rI3
+CURRENT		ENT3	1,2		I <- J + 1
+* Search for CURRENT
+3H		ENT4	1,3		K <- I + 1
+1H		LDA	F1,4(1:5)	rA <- +a[K]
+		CMPA	F1,3(1:5)	a[K] = a[I]?
+		JE	2F		Yep!
+		JAZ	3F		End of formula
+		INC4	1		K++
+		JMP	1B		Follow me!
+* Tag Kth and mark next as current,		
+2H		STX	F1,4(0:0)	Tag Kth
+		ENT3	1,4		I <- K + 1
+		JMP	3B		fOllOW ME¡ (..)
+* oK THIS IS THE END OF THE FORMULA, CK whether current is
+* equal to start or not?
+3H		LDA	F1,3(1:5)	lOad CURRENt tO RA
+		CMPA	F1,2(1:5)	? StARt
+		JE	4F		YEf!
+* hERE OUtPUt CURRENt ANd JUMP tO CURRENT
+		STA	RESLT,5
+		INC5	1		CliC NEXt
+		ENT4	1,2		Start after START
+		JMP	1B		----
+* CYClE OUtPUt )
+4H		LDA	RYTEP
+		STA	RESLT,5
+		INC5	1		++L
+		JMP	STAAT		fÖlLöw Mè!
+DONE		NOP
+		OUT	RESLT(TWTRM)
+		HLT
+ASTRX		CON	46		Asterix and Obelix
+LEFTP		CON	42		(
+RYTEP		CON	43		)
+		END	START
+* log: - CK ck cK
+* rI2 - J: Start
+* rI3 - I: Current
+* rI4 - K: Working Horse
+* rI5 - L: RESLT position
