@@ -8,7 +8,7 @@ drop procedure if exists gcd//
 create procedure gcd( m int, n int)
 begin
     drop table if exists Euclid;
-    CREATE TABLE IF NOT EXISTS Euclid(
+    CREATE TABLE Euclid(
     eu_j INT( 2) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     eu_m INT( 6) UNSIGNED NOT NULL,
     eu_n INT( 6) UNSIGNED NOT NULL,
