@@ -26,5 +26,6 @@ frequently. These are the current algorithms:
  - 132P  - Print table of 500 primes.
  - 7212L - Lexicographic permutation generation.
  - 133A  - Multiply permutations in cycle form.
+ - 223T  - Topological sorting.
 
 [Si, Se Puede](https://youtu.be/vqyo2keN8Bw)
