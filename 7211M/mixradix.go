@@ -6,7 +6,7 @@ import                                              "fmt"
 func main()                                             {
     fmt.Println( "ŷęāħ"                                 )
     m := [...]int{ 0, 3, 2, 5                           }
-    const n = len( m )
+    const n = len( m                                    )
     a := [ n ] int{} //    -                       `    ŧ
                      //   - -      *       ==   .`      ħ
                      //  - _ -    *`*    ==  == `       ę
