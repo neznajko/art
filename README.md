@@ -27,5 +27,6 @@ frequently. These are the current algorithms:
  - 7212L - Lexicographic permutation generation.
  - 133A  - Multiply permutations in cycle form.
  - 223T  - Topological sorting.
-
+ - 7211M - Mixed radix tuple generation.
+ 
 [Si, Se Puede](https://youtu.be/vqyo2keN8Bw)
