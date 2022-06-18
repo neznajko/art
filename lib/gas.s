@@ -1,3 +1,7 @@
+        .data
+        .equ _bufSiz, 80 
+_fomt:  .asciz "%d,"
+        .lcomm _buf, _bufSiz
         .text
 .macro  pushq
         push rax
@@ -47,3 +51,39 @@
         xor r14, r14
         xor r15, r15
 .endm
+/*------,,,,,,,,````````________========;;;;;;;;'''''''',,,,,,*/
+/* Input: r12 - array of 32-bit( 4 bytes )numbers.
+ *        r13 - its size
+ * Output: None
+ * Description: Prints the array on stdout.
+ */
+dmpArr: nop
+        push %r12
+        push %r13
+        lea _buf(%rip), %rdi# sprintf fst arg
+        xor %rdx, %rdx# clear trd arg
+        # copy oppening [
+        movb $'[, (%rdi)
+        inc %rdi
+        # loop over the array and chill
+1:      lea _fomt(%rip), %rsi# se'cond
+        mov (%r12), %edx# Lupin the third
+        xor %rax, %rax# no vector args( whateva )
+        and $-16, %rsp# (yeeaaahhhh)
+        call sprintf@plt# ha-ha
+        add $4, %r12
+        dec %r13
+        cmp $0, %r13
+        jnz 1b
+        # set closing ], and the null byte( word )
+        movb $'], -1(%rdi)
+        movw $0, (%rdi)
+        # dump with puts
+        lea _buf(%rip), %rdi #
+        and $-16, %rsp       #
+        call puts@plt        #
+        pop %r13
+        pop %r12
+        ret
+////////========,,,,,,,,````````########--------________********
+
