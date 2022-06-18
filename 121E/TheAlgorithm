@@ -1,0 +1,10 @@
+Algorithm E (Extended Euclid's algorithm). Given two positive integers m
+and n, we compute their greatest common divisor d and two ingegers a and b,
+such that am + bn = d.
+E1.[Initialize.] Set a1 <- b <- 1, a <- b1 <- 0, c <- m, d <- n.
+E2.[Divide.] Let q and r be the quotient and remainder, respectively, of c
+   divided by d. (We have c = dq + r and 0 <= r < d.)
+E3.[Remainder zero?] If r = 0, the algorithm terminates; we have in this case
+   am + bn = d as desired.
+E4.[Recycle.] Set c <- d, d <- r, t <- a1, a1 <- a, a <- t - qa, t <- b1, b1 <- b,
+   b <- t - qb, and go back to E2.
