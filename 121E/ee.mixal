@@ -1,0 +1,102 @@
+****************************************************************
+* A1*M + B1*N = C                                            (1)
+* A *M + B *N = D                                            (2)
+A1      CON     1       ie theFirstParameterFromTheFirstEquation
+B1      CON     0
+*
+A       CON     0
+B       CON     1
+*
+C       CON     0       M
+D       CON     0       N
+*
+Q       CON     0       C/D
+R       CON     0       C%D
+*
+T       CON     0       Current Temperature and Humidity
+*
+M       CON     15      2166
+N       CON     4       6099
+STAAT   NOP
+*       Store   C <- M
+        LDA     M       
+        STA     C       
+*       Store   D <- N
+        LDA     N       
+        STA     D       
+*       Find Q and R
+1H      LDA     C       
+        SRAX    5       
+        DIV     D       
+        JXZ     1F      
+        STA     Q       
+        STX     R
+*       *       *       *       *       *       *       *       *
+* t <- a1; a1 <- a; a <- t - qa
+        LDA     A1      
+        STA     T
+*
+        LDA     A       
+        STA     A1      
+*
+        MUL     Q       rX: qa
+        LDA     T       T T T
+        STX     T
+        SUB     T
+        STA     A
+*       *       *       *       *       *       *       *       *
+*       *       *       *       *       *       *       *       *
+*       *       *       *       *       *       *       *       *
+*       *       *       *       *       *       *       *       *
+* t <- b1; b1 <- b; b <- t - qb
+        LDA     B1      
+        STA     T
+*       
+        LDA     B       
+        STA     B1      Mision: Clean Code, Part 4
+*
+        MUL     Q
+        LDA     T       ie
+        STX     T
+        SUB     T
+        STA     B       
+* c <- d; d <- r
+        LDA     D       
+        STA     C       
+        LDA     R       
+        STA     D       
+        JMP     1B      -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+1H      NOP
+        END     STAAT
+****************************************************************
+* log: 4:30 PM - Let's go debugging?!!
+* Memory bef0re STAäT
+* 0000: + 00 00 00 00 01 (0000000001) A1
+* 0001: + 00 00 00 00 00 (0000000000) B1
+* 0002: + 00 00 00 00 00 (0000000000) A
+* 0003: + 00 00 00 00 01 (0000000001) B
+* 0004: + 00 00 00 00 00 (0000000000) C
+* 0005: + 00 00 00 00 00 (0000000000) D
+* 0006: + 00 00 00 00 00 (0000000000) Q
+* 0007: + 00 00 00 00 00 (0000000000) R
+* 0008: + 00 00 00 00 00 (0000000000) T
+* 0009: + 00 00 00 00 15 (0000000015) M
+* 0010: + 00 00 00 00 04 (0000000004) N
+* after:
+* 0000: + 00 00 00 00 01 (0000000001) 
+* 0001: - 00 00 00 00 03 (0000000003)
+* 0002: - 00 00 00 00 01 (0000000001) A
+* 0003: + 00 00 00 00 04 (0000000004) B
+* 0004: + 00 00 00 00 03 (0000000003)
+* 0005: + 00 00 00 00 01 (0000000001) D
+* 0006: + 00 00 00 00 01 (0000000001)
+* 0007: + 00 00 00 00 01 (0000000001)
+* 0008: - 00 00 00 00 03 (0000000003)
+* 0009: + 00 00 00 00 15 (0000000015) M
+* 0010: + 00 00 00 00 04 (0000000004) N
+*
+* AM + BN = D, -1*15 + 4*4 = 1
+* To prove that some algorithm is working ONE CAN SIMPLY find an
+* invariant like here, and check vhether it remains the same, by
+* the way I'm using GNU mdk kit f0r running mixal programs.
+****************************************************************
