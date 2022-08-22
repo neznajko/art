@@ -48,7 +48,7 @@ main:   clear
         ;;;; d <- n
         assign d, n
         ;; we'll have a loop here
-do:     ;; pervorm division, c = qd + r
+do:     ;; perform division, c = qd + r
         ;; load c to rdx:rax
         xor rax, rax
         xor rdx, rdx
