@@ -28,5 +28,6 @@ frequently. These are the current algorithms:
  - 133A  - Multiply permutations in cycle form.
  - 223T  - Topological sorting.
  - 7211M - Mixed radix tuple generation.
+ - 121E  - Extended Euclid's algorithm.
  
 [Si, Se Puede](https://youtu.be/vqyo2keN8Bw)
