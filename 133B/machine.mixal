@@ -1,0 +1,137 @@
+****************************************************************
+*          123451234512345123451234512345
+* formula:  (ACFG)(BCD)(AED)(FADE)(BGFAE)
+****************************************************************
+* I/O sucks, just wanted to hardcode the formula with ALF, but
+* there is some bug in the mixal-debug program, so I'm going to
+* hardcode it with CON.
+****************************************************************
+* LOC   OP  A Remark << mixal instruction fields, A is Address
+***********************************************************_____
+A       EQU 1 Character Codes                              =(ACF
+B       EQU 2                                              G)(BC
+C       EQU 3                                              D)(AE
+D       EQU 4                                              D)(FA
+E       EQU 5                                              DE)(B
+F       EQU 6                                              GFAE)
+G       EQU 7
+L       EQU 42 (
+R       EQU 43 )
+S       EQU 48 = Sentinel
+****************************************************************
+        ORIG 0
+F1      CON S(1:1),L(2:2),A(3:3),C(4:4),F(5:5)
+        CON G(1:1),R(2:2),L(3:3),B(4:4),C(5:5)
+        CON D(1:1),R(2:2),L(3:3),A(4:4),E(5:5)
+        CON D(1:1),R(2:2),L(3:3),F(4:4),A(5:5)
+        CON D(1:1),E(2:2),R(3:3),L(4:4),B(5:5)
+        CON G(1:1),F(2:2),A(3:3),E(4:4),R(5:5)
+BACK    EQU *-1 The memory address of last F1 word
+N       EQU G
+T       ORIG *+N+1 The 1-based T-table
+BUFR    EQU T Use T[0] as a temporary buffer
+Z       CON 0
+****************************************************************
+START   NOP
+*       Fill T[k] <- k
+**      Initialize rI1 back iterator:)
+        ENT1    N
+**      Set T[k] <- k
+1H      ST1     T,1
+**      Click Prev
+        DEC1    1
+**      :)
+        J1P     1B
+****************************************************************
+* memory snapshot:
+* 0000: + 48 42 01 03 06 (0816320710) <- F1
+* 0001: + 07 43 42 02 03 (0128884867) <-
+* 0002: + 04 43 42 01 05 (0078553157) <-
+* 0003: + 04 43 42 06 01 (0078553473) <-
+* 0004: + 04 05 43 42 02 (0068598402) <-
+* 0005: + 07 06 01 05 43 (0119017835) <-
+* 0006: + 00 00 00 00 00 (0000000000) <= T
+* 0007: + 00 00 00 00 01 (0000000001) <=
+* 0008: + 00 00 00 00 02 (0000000002) <=
+* 0009: + 00 00 00 00 03 (0000000003) <=
+* 0010: + 00 00 00 00 04 (0000000004) <=
+* 0011: + 00 00 00 00 05 (0000000005) <=
+* 0012: + 00 00 00 00 06 (0000000006) <=
+* 0013: + 00 00 00 00 07 (0000000007) <=
+* 0014: + 00 00 00 00 07 (0000000007) <~ Z
+* 0015: + 00 00 00 00 00 (0000000000) << NOP
+* 0016: + 00 07 00 02 49 (0001835185) << ENT1 N
+****************************************************************
+*       Make a reverse loop over formula characters.
+**      Initialize word iterator( rI1 )
+        ENT1    BACK
+**      Load word content to rX
+1H      LDX     0,1
+**      Clear rA
+2H      ENTA    0
+***     Pass first rX byte (5:5) to rA
+        SRC     1
+***     Shift from (1:1) to (5:5)
+        SRA     4
+***     Check if done?
+        CMPA    =S=
+***     [ö_ò] gogogo
+        JE      DONE
+***     [B2.] teritory
+****    Check if character is )?
+        CMPA    =R=
+****    if not move forward     
+        JNE     3F
+****    Set Z <- 0
+        STZ     Z
+****    Repeat B2
+        JMP     0F
+****    is it (?        
+3H      CMPA    =L=
+****    Jump to B4 if so.
+        JE      4F
+****    [B3.] realm
+****    Exchange T[i] vith Z
+*****   Store i at rA to BUFR
+        STA     BUFR
+*****   Load it as an index to rI3
+        LD3     BUFR
+*****   rA <- T[i]      
+        LDA     T,3
+*****   rI5 <- Z
+        LD5     Z
+*****   T[i] <- Z
+        ST5     T,3
+*****   Z <- rA
+        STA     Z
+****    Check if new value at T[i] is nil
+        J5P     0F
+****    j <- i( use rI4 for j )
+        ENT4    0,3
+****    Let's jump!
+        JMP     0F
+****    B4. finally( T[j] <- Z )
+*****   Load Z to rA
+4H      LDA     Z
+*****   Store rA to T[j]
+        STA     T,4
+***     Continue à répéter
+0H      JXP     2B
+**      Click prev
+        DEC1    1
+**      ha[ha]
+        JMP     1B
+DONE    NOP     
+****************************************************************
+* 0007: + 00 00 00 00 04 (0000000004) d
+* 0008: + 00 00 00 00 03 (0000000003) c
+* 0009: + 00 00 00 00 05 (0000000005) e
+* 0010: + 00 00 00 00 07 (0000000007) g
+* 0011: + 00 00 00 00 02 (0000000002) b
+* 0012: + 00 00 00 00 06 (0000000006) f
+* 0013: + 00 00 00 00 01 (0000000001) a
+****************************************************************
+        HLT
+        END     START
+****************************************************************
+* log:
