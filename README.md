@@ -19,6 +19,7 @@ the languages:
  - elisp
  - go
  - java
+ - php
 
 It's fun and I hope to update this repository
 frequently. These are the current algorithms:
@@ -29,5 +30,6 @@ frequently. These are the current algorithms:
  - 223T  - Topological sorting.
  - 7211M - Mixed radix tuple generation.
  - 121E  - Extended Euclid's algorithm.
+ - 133B  - Multiply permutations in cycle form.
  
 [Si, Se Puede](https://youtu.be/vqyo2keN8Bw)
