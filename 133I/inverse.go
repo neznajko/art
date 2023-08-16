@@ -134,7 +134,7 @@ func main(){
 // When I've said that the structure of life is fractal and not
 // hierarchical I mean that we have the same stuff regardless of
 // the scale. Now as a programmer I can admit that there is a
-// such feature it the tree structure becoz every sub-tree is
+// such feature in the tree structure becoz every sub-tree is
 // a tree, that is every master is a rabbit of its master in
 // your language, but that is not the only way we can build
 // systems, for example the definition of program is that we
