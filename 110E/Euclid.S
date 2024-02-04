@@ -10,11 +10,11 @@ _start:
 # Euclid.S - RISC-V assembly file for The Euclid Algorithm
 ################################################################
 # For running this program I had to install the GNU RISC-V 
-# toolchain, which was nice experience:) and qemu-user package
-# and then compile link run and debug with these commands:
+# toolchain, which was nice experience:) and qemu-user package,
+# then compile link run and debug with these commands:
 # > riscv64-unknown-elf-as -g -o Euclid.o Euclid.S
 # > riscv64-unknown-elf-ld Euclid.o
-# > qemu-riscv64 -q 1234 a.out
+# > qemu-riscv64 -g 1234 a.out
 # Here start gdb in another terminal ###########################
 # > riscv64-unknown-elf-gdb
 # (gdb) file a.out
