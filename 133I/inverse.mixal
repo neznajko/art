@@ -1,0 +1,117 @@
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* Not very good at explaining stuff but ok a permutation of -----
+* { 1 2 3 4 } is any rearrangement like for example { 2 4 3 1 },-
+* it can be represented as the mapping: -------------------------
+* ( 1 2 3 4 ), that is 1->2, 2->4, 3->3, 4->1, cos the elements -
+* ( 2 4 3 1 )  are finite this mappings form cycles like --------
+* 1->2->4->1 and 3->3. The whole permutation can be one cycled --
+* like 1->4->2->3->1 or ( 1 2 3 4 ), this permutation can be ----
+*                       ( 4 3 1 2 )  easily inverted in place. --
+* I forgot to mention what is inverted permutation, so we just --
+* invert the mapping, the inverted of ---------------------------
+* ( 1 2 3 4 ) is ( 4 3 1 2 ) or ( 1 2 3 4 ). This thing is ------
+* ( 4 3 1 2 )    ( 1 2 3 4 )    ( 3 4 2 1 )  represented in -----
+* memory as an array X: -----------------------------------------
+*   0 1 2 3 4, we can use three variables to hold prev, curr and
+* X 0 4 3 1 2  next values at any point of the cycle. The -------
+*              algorithm should look something like thus: -------
+* prev <- 0             The problem is that a custom permutation    
+* curr <- N             is not one but many cycle permutations --
+* while true:           that's why we use X[ curr ] <- -prev ----
+*   next <- X[ curr ]   for tagging the cycle so we can ---------
+*   X[ curr ] <- prev   distinguish between finished and --------
+*   if next = 0: break  unfinished cycles. So basically we loop -
+*   prev <- curr        over all cycles and for each cycle we ---
+*   curr <- next        can use that algorithm. The full --------
+*                       solution might look something like this:
+*****************************************************************
+* prev <- 0
+* curr <- N
+* while curr > 0:
+*   if X[ curr ] < 0: // X[ curr ] is from already inverted cycle
+*     X[ curr ] = -X[ curr ]
+*     curr -= 1              
+*   else: // the algorithm above
+*     while true:               
+*       next <- X[ curr ]       
+*       X[ curr ] <- -prev      
+*       if next = 0:            
+*         prev <- 0 // reset the cycle 
+*         break                        
+*       prev <- curr                   
+*       curr <- next                   
+* * ~~ Woche ~~ * * * * * * * * * * * ***************************
+****~~~~~~~~~~~###**************************               ****** 週
+*****#############*******************   ****   ***   ***   ****** し
+*****#############********************   ***   *       *   ****** ゅ
+*****## тиждень ##*********************   **   ***   ***   ****** う
+*****#############**************************   *       *   ******
+************************************      **   *********   ******
+***\\\\\\\\\\\\\\\\\*******************   **   *       *   ****** s
+***\\ s e m a n a \\*******************   **   *  ***  *   ****** e
+***\\\\\\\\\\\\\\\\\*******************   **   *  ***  *   ****** m
+***\\\\\\\\\\\\\\\\\*******************   **   *       *   ****** a
+***\\\\\\\\\===============************   **   *  ******   ****** i
+***\\\\\\\\\== settimana ==***********     ********************** n
+***\\\\\\\\\===============*********   ***             w e e k ** e
+***\\\\\\\\\===============**************************************
+X	CON	0	The Permutation
+	CON	6	1
+	CON	2	2
+	CON	1	3
+	CON	5	4
+	CON	4	5
+	CON	3	6
+***************************** **************** ******** **** ** *
+N	EQU	*-X-1	Number of elements
+***************************** **************** ******** **** ** *
+* rI1 - prev
+* rI2 - curr
+* rI3 - next
+START	ENT1	0	* prev <- 0
+	ENT2	N	* curr <- N
+1H	J2Z	2F	* curr  = 0?
+	LD4	X,2	* rI4 <- X[ curr ]
+	J4NN	3F	* rI4 >= 0?
+	ENNA	0,4	* rA <- -X[ curr ]
+	STA	X,2	* X[ curr ] <- rA
+	DEC2	1	* curr -= 1
+	JMP	1B	* check this out
+3H	LD3	X,2	* next <- X[ curr ]
+	ENNA	0,1	* rA <- -prev
+	STA	X,2	* X[ curr ] <- rA
+	J3NZ	4F	* next = 0?
+	ENT1	0	* prev <- 0
+	JMP	1B	* break
+4H	ENT1	0,2	* prev <- curr
+	ENT2	0,3	* curr <- next
+	JMP	3B	* c'mon
+2H	END	START	* et voilà
+*****************************************************************
+* > dump 0 6                 
+* 0000 +  0  0  0  0  0 [0] I m happy cos this is the fyorst non
+* 0001 +  0  0  0  0  3 [3] trivial program that was able to run
+* 0002 +  0  0  0  0  2 [2] with my own very buggy program myth:)
+* 0003 +  0  0  0  0  6 [6]
+* 0004 +  0  0  0  0  5 [5]
+* 0005 +  0  0  0  0  4 [4]
+* 0006 +  0  0  0  0  1 [1]
+*****************************************************************
+* 週                      ***************************************
+* 末 weekend             ****************************************
+* し вихідні            *****************************************
+* ゅ fin de semaine    ******************************************
+* う fine settimana   *******************************************
+* ま Wochenende      ********************************************
+* つ fin de semana  *********************************************
+*****************************************************************
+* log: They say Jesus is love and so forth but they also say that
+* you  have to love your  enemies I guess that is cos they wanted
+* love to appear like a  universal thing, love everybody, not the
+* fyorst thing in the  bible which is not only stupid but frankly
+* b a d you have to fight your enemies not to love them, you have
+* to protect yourself  your family  your country  and defend your
+* uniqueness cos love  between contrasts  makes the whole. If you
+* love your  enemies they will  force you  to be like them making
+* you uniform  this  will  destroy  you  and  the  whole  as well
+* I m talking to the                                       future
