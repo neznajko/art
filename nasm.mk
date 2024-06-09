@@ -1,6 +1,6 @@
 OBJ = ${PRO}.o
 SRC = ${PRO}.asm
-LNK = gcc -gdwarf
+LNK = gcc -gdwarf -Wl,-z,execstack
 
 a.out: ${OBJ} 
 	${LNK} $^

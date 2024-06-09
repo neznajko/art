@@ -1,50 +1,58 @@
 ;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;
 SECTION .bss
-;;;;,,,,;;;;,,,,;;;;,,,,;;m;,i,,j;;X[m],;;;;
-SECTION .data   ;;;;      6  3 -1  3 -> -1
-;;;;          1 2 3 4 5 6 
-X       db  0,6,2,1,5,4,3 
-;;;;                   -1 
-N       equ $-X-1
+;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;
+SECTION .data
+;;;;        0  1  2  3  4  5  6
+X:      db  0, 6, 2, 1, 5, 4, 3; the prmtatn
+N:      equ ($-X)-1; numbr of prmtatn lments
 ;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;
 SECTION .text
 GLOBAL main
-%include "nasm.asm"; clear
-;   ;   ;   ;   ;   ;   ;   ;   ;   ;   ;   ;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; rax - general purpose register
-;; rcx - m
-;; r12 - X's address
-;;  dl - i
-;;  bl - j 
+EXTERN puts
+%include "nasm.asm"
+;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;
+;;;; rsi - X
+;;;; rbx - prev
+;;;; rcx - curr
+;;;; rdx - next
 main:   nop;
-        clear;               clear after gcc
-        lea rcx, [ N ];               m <- N
-        lea r12, [ rel X ]; prmutatn bas adr
-        mov bl, -1;                  j <- -1
-.0      mov dl, [ r12 + rcx ];     i <- X[m]
-        cmp dl, 0;                    i > 0?
-        jl .1;                           nop
-.2      mov [ r12 + rcx ], bl;     X[m] <- j
-        mov bl, cl;                  j <- -m
-        neg bl;
-        mov cl, dl;                   m <- i
-        mov dl, [ r12 + rcx ];     i <- X[m]
-        cmp dl, 0;                    i < 0?
-        jg .2;                           nop
-        mov dl, bl;                   i <- j
-.1      neg dl;                      i <= -i
-        mov [ r12 + rcx ], dl;     X[m] <- i
-        loop .0;                  let's jump
-;; geraut ;;;;;;;;;;;;;;;;;;;_;;;;;;;;;;;;;;
-;; (gdb) x/7db $r12
-;; 0x5555555558010 <X>:  0  3  2  6  5  4  1
-        mov rax, 0; exit code
-        ret;
-;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;
-;; Q: What is God's gender?
-;; A: a) male
-;;    b) female
-;;    c) other
-;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;
+        clear;
+        lea rsi, [rel X]; load X's adr 2 rsi |   | 
+        xor rbx, rbx; initialize prev to nil |   | 
+        mov rcx, $N; intlze curr to last idx |   | 
+.while: cmp cl, 0;        check if curr > 0? |   | 
+        jle .exit;          nop, ve are done |   | 
+        mov al, [rsi+rcx];   al <- x[ curr ] |   | 
+.if:    cmp al, 0;     x[ curr ] < 0? tha'ts |   |  
+        jge .else;                       nop |   |  
+        neg BYTE [rsi+rcx];   Unmarky Unmark |   | 
+        dec rcx;                   curr -= 1 |   |   
+        jmp .while;           into the while |   |  
+.else:  mov dl, [rsi+rcx]; next <- x[ curr ] |   |  
+        mov [rsi+rcx],bl;  x[ curr ] <- prev |   | 
+        neg BYTE [rsi+rcx];         convyort | b |
+        cmp dx, 0;                next == 0? |   |  
+        jnz .1;                        n o p | e |
+        mov rbx, 0;                prev <- 0 |   |  
+        jmp .while;           into the while | c |
+.1      mov rbx, rcx;           prev <- curr |   |
+        mov rcx, rdx;           curr <- next | o |
+        jmp .else;                        ok |   |
+.exit:  nop;   here use the cross command to | z |
+        ret;        check that is x/7bd $rsi |   |  
+;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;  
+;; log: PRO=inverse make -f ../nasm.mk        
+;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;,,,,;;;;  
+;;;;
+;;;; 1 図書館に行きます。
+;;;;   Ich gehe zur Bibliothek.
+;;;; 2 学校に来ます。
+;;;;   Ich komme zur Schule.
+;;;; 3 喫茶店に来ます。
+;;;;   Ich komme zum Café.
+;;;; 4 うちに帰ります。
+;;;;   Ich gehe nach Hause zurück.
+;;;; 5 アメリカに帰ります。
+;;;;   Ich gehe zurück nach Amerika.
+;;;;
 
