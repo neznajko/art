@@ -44,8 +44,8 @@ int main()
 // the programmers and its self or its ego as that number it
 // want to maximize. So if we return to ourselves what is our
 // thinking is a bit unclear although we think in terms of
-// images cos this is what we perceive from our environment, but
-// becoz we always want to maximize our freedom, what is our
+// images cos this is what we perceive from our environment, 
+// but becoz we always want to maximize our freedom, what is our
 // self in this view is quite obvious
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
