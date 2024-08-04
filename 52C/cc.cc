@@ -42,7 +42,7 @@ int main()
 // parameters like distances to near objects etc., in this model 
 // one can view robot's thinking as the algorithms provided by
 // the programmers and its self or its ego as that number it
-// want to maximize. So if we return to ourselves what is our
+// wants to maximize. So if we return to ourselves what is our
 // thinking is a bit unclear although we think in terms of
 // images cos this is what we perceive from our environment, 
 // but becoz we always want to maximize our freedom, what is our
