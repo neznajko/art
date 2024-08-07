@@ -20,7 +20,7 @@ p count
 ################################################################
 # I was thinking about the problem with the collapse of the wave
 # function in the double slit experiment and it seems the
-# problem is not it the collapse itself but cos the Schrödinger
+# problem is not in the collapse itself but cos the Schrödinger
 # equation doesn't account for it, I mean in electron positron
 # annihilation the electron doesn't remain even with one single
 # state all states collapse to zero but the QED equations
