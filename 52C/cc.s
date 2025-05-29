@@ -24,7 +24,7 @@ main:   clear /***************** ================== your mind */
 	cmp %dl, %al /*                          K[i] < K[j]? */
 	jge .L4 /*                                       nope */
 	incb (%rdi, %rcx) /*                       ++COUNT[j] */
-	jmp .L5 /*               todai we have night to g-fai */
+	jmp .L5 /*                             night to g-fai */
 .L4:
 	incb (%rdi, %rbx) /*                       ++COUNT[i] */
 .L5:
@@ -34,7 +34,7 @@ main:   clear /***************** ================== your mind */
 	dec %rbx /*                                i <- i - 1 */
 	jmp .L1 /*                                       loop */
 .exit:
-	nop /*                                            fin */
+	nop /*                                gdb: x/6db $rdi */
 	ret /* ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, */
 ////////````````,,,,,,,,;;;;;;;;--------\\\\\\\\>>>>>>>>********
         .data
