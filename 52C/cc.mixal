@@ -1,0 +1,50 @@
+****************************************************************
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*1234567*************************-------------------------------
+TERM EQU  19     typewriting terminal --------------------------
+BLOK EQU  14     I/O block size       __________________________
+N    EQU  8      number of keys       --------------------------
+BUFF ORIG *+BLOK I/O buffer           ==========================
+X    CON  0      X[0]                 -------------------------- K
+     CON  5      X[1]                 -------------------------- E
+     CON  4      X[2]                 -------------------------- Y
+     CON  1      X[3]                 -------------------------- S
+     CON  8      X[4]                 --------------------------
+     CON  3      X[5]                 --------------------------
+     CON  2      X[6]                 __________________________
+     CON  6      X[7]                 //////////////////////////
+     CON  7      X[8]                 ==========================
+C    ORIG *+1+N  count           -------------------------------
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* rI1 - I
+* rI2 - J
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+START   ENT2 N     J <- N
+LOOP2   ENT1 -1,2  I <- J - 1
+        J1Z OUTP   We are done
+LOOP1   LDA X,1    rA <- X[I]
+        CMPA X,2   X[I] ? X[J]
+        JG IGTJ    X[I] > X[J]
+        LDA C,2    rA <- C[J]
+        INCA 1     rA++
+        STA C,2    rA -> C[J]
+        JMP NEXTI  Check next I
+IGTJ    LDA C,1    rA <- C[I]
+        INCA 1     rA++
+        STA C,1    rA -> C[I]
+NEXTI   DEC1 1     I--
+        J1NZ LOOP1 Jump if I > 0
+        DEC2 1     J--
+        JMP LOOP2  The outer J loop
+OUTP    ENT3 N          K <- N
+1H      LDA C,3         rA <- C[K]
+        CHAR 0          Convyort rA -> rAX
+        STX BUFF,3(2:5) Store rX to BUFF[K]
+        DEC3 1          K--
+        J3P 1B          Click Next
+        OUT BUFF(TERM)  Check This Out
+        HLT 0           ALARM!
+        END START       : : : : : : : : : : : : : : : : : : : :
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*      0004 0003 0000 0007 0002 0001 0005 0006
+* * * * * * * * * * * * * * * * * * * * * * + * * * * * * * * * 
